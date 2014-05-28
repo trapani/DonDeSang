@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC
+		"-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+		"http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+    <session-factory>
+        <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+        <property name="hibernate.connection.url">jdbc:mysql://localhost/dondesang</property>
+        <property name="hibernate.connection.username">root</property>
+        <property name="hibernate.connection.password"></property>
+        <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+        
+        <property name="hibernate.transaction.factory_class">org.hibernate.transaction.JDBCTransactionFactory</property>	
+        <property name="show_sql">true</property>
+        <property name="hibernate.format_sql">true</property>
+        <property name="use_sql_comments">true</property>
+        <property name="hbm2ddl.auto">validate</property>
+        
+        <mapping class="pojo.Adresse" />
+        <mapping class="pojo.Analyse" />
+        <mapping class="pojo.Collation" />
+        <mapping class="pojo.Collecte" />
+        <mapping class="pojo.Conducteur" />
+        <mapping class="pojo.Detailsanalyse" />
+        <mapping class="pojo.Donneur" />
+        <mapping class="pojo.Formulaire" />
+        <mapping class="pojo.Groupesanguin" />
+        <mapping class="pojo.Infirmiere" />
+        <mapping class="pojo.Medecin" />
+        <mapping class="pojo.Poche" />
+        <mapping class="pojo.Stock" />
+        <mapping class="pojo.Transport" />
+        <mapping class="pojo.Ville" />
+    </session-factory>
+</hibernate-configuration>

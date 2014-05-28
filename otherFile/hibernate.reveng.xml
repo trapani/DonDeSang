@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-reverse-engineering PUBLIC "-//Hibernate/Hibernate Reverse Engineering DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-reverse-engineering-3.0.dtd" >
+
+<hibernate-reverse-engineering>
+  <table-filter match-catalog="dondesang" match-name="adresse"/>
+  <table-filter match-catalog="dondesang" match-name="analyse"/>
+  <table-filter match-catalog="dondesang" match-name="collation"/>
+  <table-filter match-catalog="dondesang" match-name="collecte"/>
+  <table-filter match-catalog="dondesang" match-name="conducteur"/>
+  <table-filter match-catalog="dondesang" match-name="detailsanalyse"/>
+  <table-filter match-catalog="dondesang" match-name="donneur"/>
+  <table-filter match-catalog="dondesang" match-name="formulaire"/>
+  <table-filter match-catalog="dondesang" match-name="groupesanguin"/>
+  <table-filter match-catalog="dondesang" match-name="infirmiere"/>
+  <table-filter match-catalog="dondesang" match-name="medecin"/>
+  <table-filter match-catalog="dondesang" match-name="poche"/>
+  <table-filter match-catalog="dondesang" match-name="stock"/>
+  <table-filter match-catalog="dondesang" match-name="transport"/>
+  <table-filter match-catalog="dondesang" match-name="ville"/>
+</hibernate-reverse-engineering>
