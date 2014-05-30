@@ -1,6 +1,6 @@
 package pojo;
 
-// Generated 28 mai 2014 11:55:57 by Hibernate Tools 4.0.0
+// Generated 30 mai 2014 10:49:31 by Hibernate Tools 4.0.0
 
 import java.util.HashSet;
 import java.util.Set;
@@ -24,22 +24,33 @@ public class Poche implements java.io.Serializable {
 	private int idPoche;
 	private Analyse analyse;
 	private Donneur donneur;
+	private boolean autotransfusion;
+	private boolean utilise;
+	private boolean etat;
 	private Set<Collecte> collectes = new HashSet<Collecte>(0);
 
 	public Poche() {
 	}
 
-	public Poche(int idPoche, Analyse analyse, Donneur donneur) {
+	public Poche(int idPoche, Analyse analyse, Donneur donneur,
+			boolean autotransfusion, boolean utilise, boolean etat) {
 		this.idPoche = idPoche;
 		this.analyse = analyse;
 		this.donneur = donneur;
+		this.autotransfusion = autotransfusion;
+		this.utilise = utilise;
+		this.etat = etat;
 	}
 
 	public Poche(int idPoche, Analyse analyse, Donneur donneur,
+			boolean autotransfusion, boolean utilise, boolean etat,
 			Set<Collecte> collectes) {
 		this.idPoche = idPoche;
 		this.analyse = analyse;
 		this.donneur = donneur;
+		this.autotransfusion = autotransfusion;
+		this.utilise = utilise;
+		this.etat = etat;
 		this.collectes = collectes;
 	}
 
@@ -71,6 +82,33 @@ public class Poche implements java.io.Serializable {
 
 	public void setDonneur(Donneur donneur) {
 		this.donneur = donneur;
+	}
+
+	@Column(name = "autotransfusion", nullable = false)
+	public boolean isAutotransfusion() {
+		return this.autotransfusion;
+	}
+
+	public void setAutotransfusion(boolean autotransfusion) {
+		this.autotransfusion = autotransfusion;
+	}
+
+	@Column(name = "utilise", nullable = false)
+	public boolean isUtilise() {
+		return this.utilise;
+	}
+
+	public void setUtilise(boolean utilise) {
+		this.utilise = utilise;
+	}
+
+	@Column(name = "etat", nullable = false)
+	public boolean isEtat() {
+		return this.etat;
+	}
+
+	public void setEtat(boolean etat) {
+		this.etat = etat;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "poche")

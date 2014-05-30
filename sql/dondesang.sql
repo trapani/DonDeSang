@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client: localhost
--- Généré le: Mer 28 Mai 2014 à 09:48
+-- Généré le: Ven 30 Mai 2014 à 08:51
 -- Version du serveur: 5.6.12-log
 -- Version de PHP: 5.4.16
 
@@ -131,8 +131,11 @@ CREATE TABLE IF NOT EXISTS `donneur` (
   `idDonneur` int(11) NOT NULL,
   `Nom` varchar(100) NOT NULL,
   `Prenom` varchar(50) NOT NULL,
-  `Age` int(11) NOT NULL,
+  `DateNaissance` date NOT NULL,
   `Sexe` char(1) NOT NULL,
+  `email` varchar(100) DEFAULT NULL,
+  `tel` varchar(30) DEFAULT NULL,
+  `gsm` varchar(30) DEFAULT NULL,
   `idAdresse` int(11) NOT NULL,
   `idGrp` int(11) NOT NULL,
   PRIMARY KEY (`idDonneur`),
@@ -204,6 +207,9 @@ CREATE TABLE IF NOT EXISTS `medecin` (
 
 CREATE TABLE IF NOT EXISTS `poche` (
   `idPoche` int(11) NOT NULL,
+  `autotransfusion` tinyint(1) NOT NULL,
+  `utilise` tinyint(1) NOT NULL,
+  `etat` tinyint(1) NOT NULL,
   `idAnalyse` int(11) NOT NULL,
   `idDonneur` int(11) NOT NULL,
   PRIMARY KEY (`idPoche`),
