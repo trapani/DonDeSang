@@ -84,7 +84,7 @@ public class Poche implements java.io.Serializable {
 		this.donneur = donneur;
 	}
 
-	@Column(name = "autotransfusion", nullable = false)
+	@Column(name = "autotransfusion",columnDefinition="BIT",length=1, nullable = false)
 	public boolean isAutotransfusion() {
 		return this.autotransfusion;
 	}
@@ -93,7 +93,7 @@ public class Poche implements java.io.Serializable {
 		this.autotransfusion = autotransfusion;
 	}
 
-	@Column(name = "utilise", nullable = false)
+	@Column(name = "utilise",columnDefinition="BIT",length=1, nullable = false)
 	public boolean isUtilise() {
 		return this.utilise;
 	}
@@ -102,7 +102,7 @@ public class Poche implements java.io.Serializable {
 		this.utilise = utilise;
 	}
 
-	@Column(name = "etat", nullable = false)
+	@Column(name = "etat",columnDefinition="BIT",length=1, nullable = false)
 	public boolean isEtat() {
 		return this.etat;
 	}
