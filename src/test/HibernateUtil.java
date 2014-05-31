@@ -7,7 +7,7 @@ import org.hibernate.service.ServiceRegistryBuilder;
 
 // Ceci n'est pas un singleton, c'est la représentation d'un singleton
 
-class HibernateUtil {
+public class HibernateUtil {
 
 	private static SessionFactory factory;
 	private static ServiceRegistry serviceRegistry;

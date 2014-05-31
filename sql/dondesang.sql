@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client: localhost
--- Généré le: Ven 30 Mai 2014 à 08:51
+-- Généré le: Sam 31 Mai 2014 à 09:43
 -- Version du serveur: 5.6.12-log
 -- Version de PHP: 5.4.16
 
@@ -29,11 +29,11 @@ USE `dondesang`;
 --
 
 CREATE TABLE IF NOT EXISTS `adresse` (
+  `idAdresse` int(11) NOT NULL AUTO_INCREMENT,
   `Rue` varchar(100) NOT NULL,
   `Numero` varchar(5) NOT NULL,
-  `idAdresse` int(11) NOT NULL,
-  `idVille` int(11) NOT NULL,
-  `idTransport` int(11) NOT NULL,
+   `idVille` int(11) NOT NULL,
+   `idTransport` int(11),
   PRIMARY KEY (`idAdresse`),
   KEY `FKse_trouve_IND` (`idVille`),
   KEY `FKa_une_adresse_de_livraison_IND` (`idTransport`)
@@ -46,7 +46,7 @@ CREATE TABLE IF NOT EXISTS `adresse` (
 --
 
 CREATE TABLE IF NOT EXISTS `analyse` (
-  `idAnalyse` int(11) NOT NULL,
+  `idAnalyse` int(11) NOT NULL AUTO_INCREMENT,
   `idGrp` int(11) NOT NULL,
   `ID_Det` int(11) NOT NULL,
   PRIMARY KEY (`idAnalyse`),
@@ -61,7 +61,7 @@ CREATE TABLE IF NOT EXISTS `analyse` (
 --
 
 CREATE TABLE IF NOT EXISTS `collation` (
-  `idCollecte` int(11) NOT NULL,
+  `idCollecte` int(11) NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (`idCollecte`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -72,7 +72,7 @@ CREATE TABLE IF NOT EXISTS `collation` (
 --
 
 CREATE TABLE IF NOT EXISTS `collecte` (
-  `idCollecte` int(11) NOT NULL,
+  `idCollecte` int(11) NOT NULL AUTO_INCREMENT,
   `DateCollecte` date NOT NULL,
   `TypeCollecte` varchar(30) NOT NULL,
   `idPoche` int(11) NOT NULL,
@@ -93,10 +93,10 @@ CREATE TABLE IF NOT EXISTS `collecte` (
 --
 
 CREATE TABLE IF NOT EXISTS `conducteur` (
-  `idConducteur` int(11) NOT NULL,
+  `idConducteur` int(11) NOT NULL AUTO_INCREMENT,
   `Nom` varchar(100) NOT NULL,
   `Prenom` varchar(50) NOT NULL,
-  `EntreprisePrestataire` varchar(50) NOT NULL,
+  `EntreprisePrestataire` varchar(50),
   PRIMARY KEY (`idConducteur`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -107,7 +107,7 @@ CREATE TABLE IF NOT EXISTS `conducteur` (
 --
 
 CREATE TABLE IF NOT EXISTS `detailsanalyse` (
-  `ID_Det` int(11) NOT NULL,
+  `ID_Det` int(11) NOT NULL AUTO_INCREMENT,
   `Hemoglobine` int(11) NOT NULL,
   `Hematocrite` int(11) NOT NULL,
   `Erythrocyte` int(11) NOT NULL,
@@ -128,9 +128,10 @@ CREATE TABLE IF NOT EXISTS `detailsanalyse` (
 --
 
 CREATE TABLE IF NOT EXISTS `donneur` (
-  `idDonneur` int(11) NOT NULL,
+  `idDonneur` int(11) NOT NULL AUTO_INCREMENT,
   `Nom` varchar(100) NOT NULL,
   `Prenom` varchar(50) NOT NULL,
+  `NumNational` varchar(11) NOT NULL,
   `DateNaissance` date NOT NULL,
   `Sexe` char(1) NOT NULL,
   `email` varchar(100) DEFAULT NULL,
@@ -150,12 +151,12 @@ CREATE TABLE IF NOT EXISTS `donneur` (
 --
 
 CREATE TABLE IF NOT EXISTS `formulaire` (
-  `idFormulaire` int(11) NOT NULL,
+  `idFormulaire` int(11) NOT NULL AUTO_INCREMENT,
   `idDonneur` int(11) NOT NULL,
-  `tatouage` varchar(250) NOT NULL,
-  `piercing` varchar(250) NOT NULL,
-  `operation` varchar(250) NOT NULL,
-  `MaladieRecente` varchar(250) NOT NULL,
+  `tatouage` varchar(250) ,
+  `piercing` varchar(250) ,
+  `operation` varchar(250) ,
+  `MaladieRecente` varchar(250) ,
   PRIMARY KEY (`idFormulaire`),
   KEY `FKa_complete_IND` (`idDonneur`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -167,7 +168,7 @@ CREATE TABLE IF NOT EXISTS `formulaire` (
 --
 
 CREATE TABLE IF NOT EXISTS `groupesanguin` (
-  `idGrp` int(11) NOT NULL,
+  `idGrp` int(11) NOT NULL AUTO_INCREMENT,
   `Grp` varchar(2) NOT NULL,
   `Rhesus` char(1) NOT NULL,
   PRIMARY KEY (`idGrp`)
@@ -180,7 +181,7 @@ CREATE TABLE IF NOT EXISTS `groupesanguin` (
 --
 
 CREATE TABLE IF NOT EXISTS `infirmiere` (
-  `idInfirmiere` int(11) NOT NULL,
+  `idInfirmiere` int(11) NOT NULL AUTO_INCREMENT,
   `Nom` varchar(100) NOT NULL,
   `Prenom` varchar(50) NOT NULL,
   PRIMARY KEY (`idInfirmiere`)
@@ -193,7 +194,7 @@ CREATE TABLE IF NOT EXISTS `infirmiere` (
 --
 
 CREATE TABLE IF NOT EXISTS `medecin` (
-  `idMedecin` int(11) NOT NULL,
+  `idMedecin` int(11) NOT NULL AUTO_INCREMENT,
   `Nom` varchar(100) NOT NULL,
   `Prenom` varchar(50) NOT NULL,
   PRIMARY KEY (`idMedecin`)
@@ -206,7 +207,7 @@ CREATE TABLE IF NOT EXISTS `medecin` (
 --
 
 CREATE TABLE IF NOT EXISTS `poche` (
-  `idPoche` int(11) NOT NULL,
+  `idPoche` int(11) NOT NULL AUTO_INCREMENT,
   `autotransfusion` tinyint(1) NOT NULL,
   `utilise` tinyint(1) NOT NULL,
   `etat` tinyint(1) NOT NULL,
@@ -224,7 +225,7 @@ CREATE TABLE IF NOT EXISTS `poche` (
 --
 
 CREATE TABLE IF NOT EXISTS `stock` (
-  `ID_Sto` int(11) NOT NULL,
+  `ID_Sto` int(11) NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (`ID_Sto`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -235,7 +236,7 @@ CREATE TABLE IF NOT EXISTS `stock` (
 --
 
 CREATE TABLE IF NOT EXISTS `transport` (
-  `idTransport` int(11) NOT NULL,
+  `idTransport` int(11) NOT NULL AUTO_INCREMENT,
   `DateTransport` date NOT NULL,
   `HeureReception` date NOT NULL,
   `idConducteur` int(11) NOT NULL,
@@ -252,7 +253,7 @@ CREATE TABLE IF NOT EXISTS `transport` (
 --
 
 CREATE TABLE IF NOT EXISTS `ville` (
-  `idVille` int(11) NOT NULL,
+  `idVille` int(11) NOT NULL AUTO_INCREMENT,
   `NomVille` varchar(100) NOT NULL,
   `CP` varchar(10) NOT NULL,
   PRIMARY KEY (`idVille`)

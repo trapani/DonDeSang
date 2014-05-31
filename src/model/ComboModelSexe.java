@@ -5,22 +5,16 @@ import java.util.ArrayList;
 import javax.swing.AbstractListModel;
 import javax.swing.ComboBoxModel;
 
-public class ComboModelGrp extends AbstractListModel implements ComboBoxModel{
+public class ComboModelSexe extends AbstractListModel implements ComboBoxModel{
 
 	private static final long serialVersionUID = 1L;
 	private ArrayList<String> list = null;
 	private Object selection = null;
 	
-	public ComboModelGrp() {
+	public ComboModelSexe() {
 		this.list = new ArrayList<String>();
-		list.add("A +");
-		list.add("A -");
-		list.add("B +");
-		list.add("B -");
-		list.add("AB +");
-		list.add("AB -");
-		list.add("O +");
-		list.add("O -");
+		list.add("Homme");
+		list.add("Femme");
 	}
 	
 	@Override
@@ -42,4 +36,5 @@ public class ComboModelGrp extends AbstractListModel implements ComboBoxModel{
 	public Object getSelectedItem() {
 		return selection;
 	}
+
 }

@@ -1,13 +1,16 @@
 package pojo;
 
-// Generated 30 mai 2014 10:49:31 by Hibernate Tools 4.0.0
+// Generated 30 mai 2014 20:19:33 by Hibernate Tools 4.0.0
 
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -28,6 +31,7 @@ public class Donneur implements java.io.Serializable {
 	private Adresse adresse;
 	private String nom;
 	private String prenom;
+	private String numNational;
 	private Date dateNaissance;
 	private char sexe;
 	private String email;
@@ -40,25 +44,28 @@ public class Donneur implements java.io.Serializable {
 	}
 
 	public Donneur(int idDonneur, Groupesanguin groupesanguin, Adresse adresse,
-			String nom, String prenom, Date dateNaissance, char sexe) {
+			String nom, String prenom, String numNational, Date dateNaissance,
+			char sexe) {
 		this.idDonneur = idDonneur;
 		this.groupesanguin = groupesanguin;
 		this.adresse = adresse;
 		this.nom = nom;
 		this.prenom = prenom;
+		this.numNational = numNational;
 		this.dateNaissance = dateNaissance;
 		this.sexe = sexe;
 	}
 
 	public Donneur(int idDonneur, Groupesanguin groupesanguin, Adresse adresse,
-			String nom, String prenom, Date dateNaissance, char sexe,
-			String email, String tel, String gsm, Set<Formulaire> formulaires,
-			Set<Poche> poches) {
+			String nom, String prenom, String numNational, Date dateNaissance,
+			char sexe, String email, String tel, String gsm,
+			Set<Formulaire> formulaires, Set<Poche> poches) {
 		this.idDonneur = idDonneur;
 		this.groupesanguin = groupesanguin;
 		this.adresse = adresse;
 		this.nom = nom;
 		this.prenom = prenom;
+		this.numNational = numNational;
 		this.dateNaissance = dateNaissance;
 		this.sexe = sexe;
 		this.email = email;
@@ -69,6 +76,7 @@ public class Donneur implements java.io.Serializable {
 	}
 
 	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name = "idDonneur", unique = true, nullable = false)
 	public int getIdDonneur() {
 		return this.idDonneur;
@@ -114,6 +122,15 @@ public class Donneur implements java.io.Serializable {
 
 	public void setPrenom(String prenom) {
 		this.prenom = prenom;
+	}
+
+	@Column(name = "NumNational", nullable = false, length = 11)
+	public String getNumNational() {
+		return this.numNational;
+	}
+
+	public void setNumNational(String numNational) {
+		this.numNational = numNational;
 	}
 
 	@Temporal(TemporalType.DATE)

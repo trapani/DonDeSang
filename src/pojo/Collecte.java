@@ -3,9 +3,12 @@ package pojo;
 // Generated 30 mai 2014 10:49:31 by Hibernate Tools 4.0.0
 
 import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -59,6 +62,7 @@ public class Collecte implements java.io.Serializable {
 	}
 
 	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name = "idCollecte", unique = true, nullable = false)
 	public int getIdCollecte() {
 		return this.idCollecte;

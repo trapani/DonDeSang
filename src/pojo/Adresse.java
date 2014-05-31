@@ -4,9 +4,12 @@ package pojo;
 
 import java.util.HashSet;
 import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -50,6 +53,7 @@ public class Adresse implements java.io.Serializable {
 	}
 
 	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name = "idAdresse", unique = true, nullable = false)
 	public int getIdAdresse() {
 		return this.idAdresse;
@@ -70,7 +74,7 @@ public class Adresse implements java.io.Serializable {
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "idTransport", nullable = false)
+	@JoinColumn(name = "idTransport", nullable = true)
 	public Transport getTransport() {
 		return this.transport;
 	}
