@@ -91,5 +91,9 @@ public class Groupesanguin implements java.io.Serializable {
 	public void setDonneurs(Set<Donneur> donneurs) {
 		this.donneurs = donneurs;
 	}
+	
+	public String toString(){
+		return this.grp + " " + this.rhesus;
+	}
 
 }

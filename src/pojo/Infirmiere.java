@@ -80,5 +80,9 @@ public class Infirmiere implements java.io.Serializable {
 	public void setCollectes(Set<Collecte> collectes) {
 		this.collectes = collectes;
 	}
+	
+	public String toString(){
+		return this.nom + " "  +this.prenom;
+	}
 
 }

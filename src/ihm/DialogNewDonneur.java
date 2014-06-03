@@ -4,13 +4,16 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
+import java.awt.Toolkit;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
 import javax.swing.JLabel;
@@ -20,10 +23,14 @@ import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
+import com.sun.xml.internal.messaging.saaj.util.ByteInputStream;
+
 import pojo.Adresse;
 import pojo.Donneur;
+import pojo.Formulaire;
 import pojo.Groupesanguin;
 import pojo.Ville;
+import sun.misc.IOUtils;
 import test.HibernateUtil;
 import model.ComboModelGrp;
 import model.ComboModelSexe;
@@ -31,6 +38,14 @@ import model.ComboModelSexe;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.io.ByteArrayOutputStream;
+import java.io.DataInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -97,23 +112,25 @@ public class DialogNewDonneur extends JDialog {
 	private String url = "jdbc:mysql://localhost/dondesang";
 	
 
-	public static void main(String[] args) {
+	/*public static void main(String[] args) {
 		try {
 			DialogNewDonneur dialog = new DialogNewDonneur();
 			dialog.setVisible(true);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-	}
+	}*/
 
 	public DialogNewDonneur() {
 		this.setTitle("Nouveau donneur");
 		this.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+		this.setIconImage(Toolkit.getDefaultToolkit().getImage(DialogNewCollecte.class.getResource("/img/donneur_16x16.png")));
 		this.setBounds(100, 100, 600, 600);
 		this.getContentPane().setLayout(new BorderLayout());
 		build();
 		reinitialisation();
 		this.setResizable(false);
+		this.setModal(true);
 		this.pack();
 	}
 	
@@ -315,6 +332,18 @@ public class DialogNewDonneur extends JDialog {
 		gbc_form.gridy = 1;
 		txt_form = new JTextField();
 		txt_form.setPreferredSize(dim_txtfield);
+		txt_form.setEditable(false);
+		txt_form.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				JFileChooser chooser = new JFileChooser();
+				int returnVal = chooser.showOpenDialog(null);
+				if (returnVal == JFileChooser.APPROVE_OPTION) {
+					File selection = chooser.getSelectedFile();
+					txt_form.setText(selection.getAbsolutePath());
+				}
+			}
+		});
 		pnl_form.add(txt_form,gbc_form);
 		
 		//Creation d'un JPanel pour les boutons "Ajouter" et "Annuler"
@@ -332,6 +361,8 @@ public class DialogNewDonneur extends JDialog {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				boolean flag = verification();
+				
+				
 				if(flag){
 					Session session = null;
 					session = HibernateUtil.instance().openSession();
@@ -353,6 +384,11 @@ public class DialogNewDonneur extends JDialog {
 								ville.setIdVille(v.getIdVille());
 								ajout = false;
 							}
+						}
+						
+						if(ajout){
+							session.persist(ville);
+							
 						}
 						
 						//ajout de l'adresse
@@ -428,11 +464,36 @@ public class DialogNewDonneur extends JDialog {
 							}
 						}
 						
-						//TODO
+						//TODO formulaire
+						Formulaire formulaire = new Formulaire();
+						
+						String pathFichierImg = txt_form.getText();
+						FileInputStream fis = null;
+						File fileImg = new File(pathFichierImg);
+						try {
+							fis=new FileInputStream(fileImg);
+						} catch (FileNotFoundException e1) {
+							e1.printStackTrace();
+						}
+						byte[] bytes = new byte[(int)fileImg.length()];
+						DataInputStream datais = new DataInputStream(fis);
+						try {
+							datais.readFully(bytes);
+							formulaire.setFile(bytes);
+						} catch (IOException e1) {
+							e1.printStackTrace();
+						}
+						
+						/*for(int i=0;i<fileImg.length();i++){
+							System.out.print(bytes[i]);
+						}*/
+						
+						
 						if(ajout){
-							session.persist(ville);
 							session.persist(adresse);
 							session.persist(donneur);
+							formulaire.setDonneur(donneur);
+							session.persist(formulaire);
 							tx.commit();
 							JOptionPane.showMessageDialog(null, "Enregistrement effectué avec succés");
 						}
@@ -444,7 +505,6 @@ public class DialogNewDonneur extends JDialog {
 						session.close();
 					}
 				}
-				chargerVille();
 			}
 		});
 		buttonPane.add(bt_ajout_donneur);
@@ -519,6 +579,7 @@ public class DialogNewDonneur extends JDialog {
 		jour = Integer.parseInt(matcher.group(1));
 		mois  = Integer.parseInt(matcher.group(3));
 		annee = Integer.parseInt(matcher.group(5));
+		
 		
 		switch (mois){
 		case 1 : case 3 :
@@ -596,6 +657,11 @@ public class DialogNewDonneur extends JDialog {
 		
 		if(txt_ville.getText().isEmpty() && flag==true){
 			JOptionPane.showMessageDialog(null, "Entrer la ville du nouveau donneur");
+			flag=false;
+		}
+		
+		if(txt_form.getText().isEmpty() && flag==true){
+			JOptionPane.showMessageDialog(null, "Entrer le formulaire du nouveau donneur");
 			flag=false;
 		}
 		

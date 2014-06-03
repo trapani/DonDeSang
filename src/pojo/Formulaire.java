@@ -1,12 +1,12 @@
 package pojo;
 
-// Generated 30 mai 2014 10:49:31 by Hibernate Tools 4.0.0
+// Generated 3 juin 2014 10:48:52 by Hibernate Tools 4.0.0
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
+import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -19,34 +19,26 @@ import javax.persistence.Table;
 @Table(name = "formulaire", catalog = "dondesang")
 public class Formulaire implements java.io.Serializable {
 
-	private int idFormulaire;
+	private Integer idFormulaire;
 	private Donneur donneur;
-	private String tatouage;
-	private String piercing;
-	private String operation;
-	private String maladieRecente;
+	private byte[] file;
 
 	public Formulaire() {
 	}
 
-	public Formulaire(int idFormulaire, Donneur donneur, String tatouage,
-			String piercing, String operation, String maladieRecente) {
-		this.idFormulaire = idFormulaire;
+	public Formulaire(Donneur donneur, byte[] file) {
 		this.donneur = donneur;
-		this.tatouage = tatouage;
-		this.piercing = piercing;
-		this.operation = operation;
-		this.maladieRecente = maladieRecente;
+		this.file = file;
 	}
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = IDENTITY)
 	@Column(name = "idFormulaire", unique = true, nullable = false)
-	public int getIdFormulaire() {
+	public Integer getIdFormulaire() {
 		return this.idFormulaire;
 	}
 
-	public void setIdFormulaire(int idFormulaire) {
+	public void setIdFormulaire(Integer idFormulaire) {
 		this.idFormulaire = idFormulaire;
 	}
 
@@ -60,40 +52,13 @@ public class Formulaire implements java.io.Serializable {
 		this.donneur = donneur;
 	}
 
-	@Column(name = "tatouage", nullable = false, length = 250)
-	public String getTatouage() {
-		return this.tatouage;
+	@Column(name = "File", nullable = false)
+	public byte[] getFile() {
+		return this.file;
 	}
 
-	public void setTatouage(String tatouage) {
-		this.tatouage = tatouage;
-	}
-
-	@Column(name = "piercing", nullable = false, length = 250)
-	public String getPiercing() {
-		return this.piercing;
-	}
-
-	public void setPiercing(String piercing) {
-		this.piercing = piercing;
-	}
-
-	@Column(name = "operation", nullable = false, length = 250)
-	public String getOperation() {
-		return this.operation;
-	}
-
-	public void setOperation(String operation) {
-		this.operation = operation;
-	}
-
-	@Column(name = "MaladieRecente", nullable = false, length = 250)
-	public String getMaladieRecente() {
-		return this.maladieRecente;
-	}
-
-	public void setMaladieRecente(String maladieRecente) {
-		this.maladieRecente = maladieRecente;
+	public void setFile(byte[] file) {
+		this.file = file;
 	}
 
 }

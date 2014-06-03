@@ -14,6 +14,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
@@ -30,7 +31,7 @@ public class Poche implements java.io.Serializable {
 	private boolean autotransfusion;
 	private boolean utilise;
 	private boolean etat;
-	private Set<Collecte> collectes = new HashSet<Collecte>(0);
+	private Collecte collectes;
 
 	public Poche() {
 	}
@@ -47,7 +48,7 @@ public class Poche implements java.io.Serializable {
 
 	public Poche(int idPoche, Analyse analyse, Donneur donneur,
 			boolean autotransfusion, boolean utilise, boolean etat,
-			Set<Collecte> collectes) {
+			Collecte collectes) {
 		this.idPoche = idPoche;
 		this.analyse = analyse;
 		this.donneur = donneur;
@@ -69,7 +70,7 @@ public class Poche implements java.io.Serializable {
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "idAnalyse", unique = true, nullable = false)
+	@JoinColumn(name = "idAnalyse", unique = true, nullable = true)
 	public Analyse getAnalyse() {
 		return this.analyse;
 	}
@@ -106,7 +107,7 @@ public class Poche implements java.io.Serializable {
 		this.utilise = utilise;
 	}
 
-	@Column(name = "etat",columnDefinition="BIT",length=1, nullable = false)
+	@Column(name = "etat",columnDefinition="BIT",length=1, nullable = true)
 	public boolean isEtat() {
 		return this.etat;
 	}
@@ -115,13 +116,13 @@ public class Poche implements java.io.Serializable {
 		this.etat = etat;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "poche")
-	public Set<Collecte> getCollectes() {
+	@OneToOne(fetch = FetchType.LAZY, mappedBy = "poche")
+	public Collecte getCollectes() {
 		return this.collectes;
 	}
 
-	public void setCollectes(Set<Collecte> collectes) {
-		this.collectes = collectes;
+	public void setCollectes(Collecte collecte) {
+		this.collectes = collecte;
 	}
 
 }

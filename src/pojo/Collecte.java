@@ -102,7 +102,7 @@ public class Collecte implements java.io.Serializable {
 		this.stock = stock;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "idPoche", unique = true, nullable = false)
 	public Poche getPoche() {
 		return this.poche;
